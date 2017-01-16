@@ -68,15 +68,11 @@ spring3.0添加了一个过滤器，可以将这些请求转换为标准的http�
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/applicationContext.xml</param-value>
+  </context-param>
 
-
-  <listener>
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-  </listener>
-
-  <welcome-file-list>
-    <welcome-file>/login</welcome-file>
-  </welcome-file-list>
 
 </web-app>
         
