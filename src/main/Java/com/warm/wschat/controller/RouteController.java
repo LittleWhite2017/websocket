@@ -12,7 +12,7 @@ public class RouteController {
     @RequestMapping(value = "")
     public String index() {
 
-        return "login";
+        return "test";
     }
 
     @RequestMapping(value = "login")

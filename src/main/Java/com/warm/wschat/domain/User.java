@@ -3,6 +3,7 @@ package com.warm.wschat.domain;
 /**
  * Created by lihongxu1 on 2017/1/12.
  */
+
 public class User {
 
     private String userid;      //用户名

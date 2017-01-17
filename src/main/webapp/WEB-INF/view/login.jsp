@@ -1,37 +1,66 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String path = request.getContextPath();%>
+<!DOCTYPE>
 <html>
 <head>
-    <title>Title</title>
+    <title>wsChat</title>
 </head>
 <body>
-<script src="<%=path%>/static/jquery/jquery-2.1.4.min.js"></script>
-<h1>Hello world!!!</h1>
-<div>
+<link href="<%=path%>/static/css/login.css" rel='stylesheet' type='text/css' />
+<script type="application/javascript" src="${pageContext.request.contextPath}/static/jquery/jquery-2.1.4.min.js"></script>
+<h1>WebSocket chat form</h1>
+<div class="login-form">
+    <div class="close"> </div>
+    <div class="head-info">
+        <label class="lbl-1">1</label>
+        <label class="lbl-2">2</label>
+        <label class="lbl-3">3</label>
+    </div>
+    <div class="clear"> </div>
 
-    <h1><%=path%> 111</h1>
-    <form id="formLogin" action="/login/userLogin" method="post">
-        <label>
-            用户名：
-        </label><input type="text" id="userid" name="userid" value=""><br>
-        <label>
-            用户密码：
-        </label><input type="password" id = "password" name="password"><br>
-        <input type="button" value="登录" onclick="onSubmit()">
+    <div class="avtar"><img src="<%=path%>/static/img/avtar.png" /></div>
+    <form id="formLogin" action="/doLogin" method="post">
+
+            <label>用户名称：</label>
+        <input type="text" id = "userid" name="userid" placeholder="请输入用户名称id"><br>
+
+        <div class="key">
+            <label>用户密码：</label>
+           <input type="password" id = "password" name="password" placeholder="请输入用户密码"><br>
+        </div>
+        <div class="signin">
+        <input type="submit" value="登录" onclick="onSubmit()">
+        </div>
     </form>
 </div>
-</body>
 
 <script>
-    console.log()
     function onSubmit(){
-        var userid = document.getElementById("userid").value;
-        console.log(userid);
+        var userid = $("#userid").val;
         if(userid == ''){
+            alert("请输入用户id");
             return false;
         }
-        alert(1);
+        var params = {
+            "userid" : $("#userid").val,
+            "password" : $("#password").val
+        };
 //        $("#formLogin").submit();
+        $.ajax({
+            data:$("#formLogin").serialize(),
+            type: "post" ,
+            dataType : "json",
+            url:"user/login",
+            success : function(data){
+                if(data.success){
+
+                }else{
+                    alert(data.msg)
+                }
+            }
+        })
     }
 </script>
+</body>
+
 </html>

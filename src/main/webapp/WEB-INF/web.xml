@@ -19,14 +19,14 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <!-- 登陆拦截器,针对jsp页面 -->
-  <filter>
-    <filter-name>LoginFilter</filter-name>
-    <filter-class>com.warm.wschat.filter.LoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LoginFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+  <!--<filter>-->
+    <!--<filter-name>LoginFilter</filter-name>-->
+    <!--<filter-class>com.warm.wschat.filter.LoginFilter</filter-class>-->
+  <!--</filter>-->
+  <!--<filter-mapping>-->
+    <!--<filter-name>LoginFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+  <!--</filter-mapping>-->
   
   <!-- Spring MVC servlet -->
   <!--配置mvc Servlet，前端控制器设计模式的实现，
@@ -72,6 +72,8 @@ spring3.0添加了一个过滤器，可以将这些请求转换为标准的http�
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:spring/applicationContext.xml</param-value>
   </context-param>
+
+
 
 
 </web-app>
