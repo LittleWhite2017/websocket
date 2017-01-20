@@ -53,7 +53,8 @@
             url:"user/login",
             success : function(data){
                 if(data.success){
-
+                    alert(1);
+                    $("#formLogin").submit();
                 }else{
                     alert(data.msg)
                 }

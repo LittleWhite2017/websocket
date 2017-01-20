@@ -180,10 +180,25 @@
       <artifactId>mybatis-spring</artifactId>
       <version>1.2.3</version>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.21</version>
+    </dependency>
     <!-- mybatis 配置结束 -->
   </dependencies>
   <build>
     <finalName>wschat</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
 
     <!-- 解决idea不编译java里的xml -->
     <!--<resources>-->
