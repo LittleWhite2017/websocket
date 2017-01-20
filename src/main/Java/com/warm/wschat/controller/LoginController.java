@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by lihongxu1 on 2017/1/12.
@@ -44,8 +45,10 @@ public class LoginController {
         return message;
     }
     @RequestMapping(value = "/doLogin",method = {RequestMethod.POST,RequestMethod.GET})
-    public String doLogin(){
-
+    public String doLogin(User entity, HttpSession session){
+        session.setAttribute("userid", entity.getUserid());
+        session.setAttribute("password", entity.getPassword());
+        session.setAttribute("login_status", true);
         return "main";
     }
 

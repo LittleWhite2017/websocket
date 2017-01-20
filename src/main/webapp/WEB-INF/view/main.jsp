@@ -53,42 +53,69 @@
 </div>
 <script>
     var wsUrl  = "ws://" + location.host+"${pageContext.request.contextPath}" ;
+    var sock;
     getConnection();
     function getConnection() {
-        var sock;
-        if ('WebSocket' in window) {
-            console.log(1);
-            sock = new WebSocket(wsUrl + "/socketServer");
-        } else if ('MozWebSocket' in window) {
-            console.log(2);
-            sock = new MozWebSocket(wsUrl + "/socketServer");
-        } else {
-            console.log(3);
-            sock = new SockJS(wsUrl + "/sock/socketServer");
-        }
-        sock.onopen = function (e) {
-            console.log("建立连接")
-        };
-        sock.onmessage = function (e) {
-            analysisMessage(e.data);  //解析后台传回的消息,并予以展示
-        };
-        sock.onerror = function (e) {
-            console.log("产生异常");
-        };
-        sock.onclose = function (e) {
-            console.log("已经关闭连接");
-        }
-    }
-    function analysisMessage(data){
-        if(data.type =='message'){
-           // $("#chat").append(111);
-            console.log("message type")
-        }
-        if(data.type =='onLine'){
-            console.log("onLine type")
-            //$("#chat").append(222);
+        if(sock==null){
+            if ('WebSocket' in window) {
+                sock = new WebSocket(wsUrl + "/socketServer");
+            } else if ('MozWebSocket' in window) {
+
+                sock = new MozWebSocket(wsUrl + "/socketServer");
+            } else {
+
+                sock = new SockJS(wsUrl + "/sock/socketServer");
+            }
+            sock.onopen = function (e) {
+                console.log("建立连接")
+            };
+            sock.onmessage = function (e) {
+                console.log(e);
+                analysisMessage(e.data);  //解析后台传回的消息,并予以展示
+            };
+            sock.onerror = function (e) {
+                console.log("产生异常");
+            };
+            sock.onclose = function (e) {
+                console.log("已经关闭连接");
+            }
+        }else{
+            layer.msg("连接已存在!", { offset: 0, shift: 6 });
         }
 
+    }
+    function analysisMessage(data){
+        message = JSON.parse(data);
+        if(message.type =='message'){
+
+            console.log("message type")
+        }
+        if(message.type =='notice'){
+            // $("#chat").append(111);
+            showNotice(message.message);
+        }
+        if(message.type =='onLine'){
+            console.log("onLine type")
+        }
+
+    }
+    function closeConnection(){
+        if(sock != null){
+            sock.close();
+            sock = null;
+            $("#list").html("");    //清空在线列表
+            layer.msg("已经关闭连接", { offset: 0});
+        }else{
+            layer.msg("未开启连接", { offset: 0, shift: 6 });
+        }
+    }
+    /**
+     * 展示提示信息
+     */
+    function showNotice(notice){
+        $("#chat").append("<div><p class=\"am-text-success\" style=\"text-align:center\"><span class=\"am-icon-bell\"></span> "+notice+"</p></div>");
+        var chat = $("#chat-view");
+        chat.scrollTop(chat[0].scrollHeight);   //让聊天区始终滚动到最下面
     }
 
 
