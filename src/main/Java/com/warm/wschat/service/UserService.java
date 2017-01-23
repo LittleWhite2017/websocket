@@ -7,4 +7,6 @@ import com.warm.wschat.domain.User;
  */
 public interface UserService {
     User selectByUserid(String userid);
+
+    boolean update(User user);
 }

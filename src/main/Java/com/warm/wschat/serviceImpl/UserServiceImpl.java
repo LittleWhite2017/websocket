@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectByUserId(userid);
         return user;
     }
+
+    @Override
+    public boolean update(User user) {
+        return userMapper.update(user);
+    }
 }

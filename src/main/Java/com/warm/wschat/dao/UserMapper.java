@@ -9,4 +9,6 @@ import org.springframework.stereotype.Service;
 @Service("userMapper")
 public interface UserMapper {
     User selectByUserId(String userid);
+
+    boolean update(User user);
 }

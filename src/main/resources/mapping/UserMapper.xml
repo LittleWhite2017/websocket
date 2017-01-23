@@ -25,4 +25,38 @@
         WHERE USERID = #{userid, jdbcType=VARCHAR}
     </select>
 
+    <update id="update" parameterType="com.warm.wschat.domain.User">
+        UPDATE USER
+           <set>
+            <if test="password != null and password != ''">
+                PASSWORD = #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                NICKNAME = #{nickname, jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null and sex != ''">
+                SEX = #{sex, jdbcType=INTEGER},
+            </if>
+            <if test="age != null and age != ''">
+                AGE = #{age, jdbcType=INTEGER},
+            </if>
+            <if test="profilehead != null and profilehead != ''">
+                PROFILEHEAD = #{profilehead, jdbcType=VARCHAR},
+            </if>
+            <if test="profile != null and profile != ''">
+                PROFILE = #{profile, jdbcType=VARCHAR},
+            </if>
+            <if test="firsttime != null and firsttime != ''">
+                FIRSTTIME = #{firsttime, jdbcType=VARCHAR},
+            </if>
+            <if test="lasttime != null and lasttime != ''">
+                LASTTIME = #{lasttime, jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''">
+                STATUS = #{status, jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE
+        USERID = #{userid,jdbcType=VARCHAR}
+    </update>
 </mapper>
