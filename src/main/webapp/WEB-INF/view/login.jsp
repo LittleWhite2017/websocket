@@ -29,7 +29,7 @@
            <input type="password" id = "password" name="password" placeholder="请输入用户密码"><br>
         </div>
         <div class="signin">
-        <input type="submit" value="登录" onclick="onSubmit()">
+        <input type="button" value="登录" onclick="onSubmit()">
         </div>
     </form>
 </div>
@@ -52,8 +52,8 @@
             dataType : "json",
             url:"user/login",
             success : function(data){
+                console.log(data);
                 if(data.success){
-
                     $("#formLogin").submit();
                 }else{
                     alert(data.msg)

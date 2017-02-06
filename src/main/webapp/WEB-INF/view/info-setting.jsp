@@ -71,7 +71,7 @@
                         </div>
                         <div class="am-form-group">
                             <div class="am-u-sm-10 am-u-sm-offset-2">
-                                <button type="submit" class="am-btn am-round am-btn-success"><span class="am-icon-send"></span> 提交</button>
+                                <button type="submit" class="am-btn am-round am-btn-success" onclick="sentp()" ><span class="am-icon-send"></span> 提交</button>
                             </div>
                         </div>
                     </form>
@@ -128,7 +128,7 @@
 
                         <div class="am-form-group">
                             <div class="am-u-sm-10 am-u-sm-offset-2">
-                                <button type="submit" class="am-btn am-round am-btn-success"><span class="am-icon-send"></span> 提交修改</button>
+                                <button type="submit" class="am-btn am-round am-btn-success" onclick="sentp()"><span class="am-icon-send"></span> 提交修改</button>
                             </div>
                         </div>
                     </form>
@@ -154,7 +154,10 @@
             shift: 6
         });
     }
-
+    function sentp(){
+        $('#myform').ajaxSubmit();
+        return false;
+    }
     function checkFileType(){
         var format = ["bmp","jpg","gif","png"];
         var filename = $("#file").val();

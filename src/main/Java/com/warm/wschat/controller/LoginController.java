@@ -32,7 +32,7 @@ public class LoginController {
             message.setMsg("用户不存在");
             message.setData("");
         }else {
-            if(password.equals(entity.getPassword())){
+            if(password.equals(user.getPassword())){
                 message.setSuccess(true);
                 message.setMsg("用户存在");
                 message.setData(user);

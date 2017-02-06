@@ -32,9 +32,10 @@ public class UserController {
         return view;
     }
     @RequestMapping("{userid}/update")
-    public String update(User user){
-        boolean flag = userService.update(user);
+    public ModelAndView update(User user){
+        ModelAndView view = new ModelAndView("info-setting");
 
-        return "{userid}/config";
+        boolean flag = userService.update(user);
+        return view;
     }
 }

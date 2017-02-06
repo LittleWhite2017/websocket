@@ -1,5 +1,6 @@
 package com.warm.wschat.websocket;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.warm.wschat.domain.Enum.MsgType;
 
@@ -57,11 +58,34 @@ public class SocketServer {
     private void subOnlineCount() {
         SocketServer.onLineCount--;
     }
-
+    /**
+     * 接收客户端的message,判断是否有接收人而选择进行广播还是指定发送
+     * @param message 客户端发送过来的消息
+     */
     @OnMessage
-    public void onMessage(String _message){
-        System.out.println("消息发送中");
+    public void onMessage(String message){
+        JSONObject chat = JSON.parseObject(message);
+        JSONObject finalMessage = JSON.parseObject(chat.get("message").toString());
+        if(finalMessage.get("to")!=null){
+            boreadMsg(message);
+        }else{
+            String[] receivers = finalMessage.get("to").toString().split(",");
+            sendToUser(message,(Session)routeMap.get(finalMessage.get("from")));//个人聊天窗口显示
+            for(String user : receivers ){
+                sendToUser(message,(Session)routeMap.get(user));
+            }
+        }
+
     }
+
+    private void sendToUser(String message, Session session) {
+        try {
+            session.getBasicRemote().sendText(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnError
     public void onError(Throwable error){
         error.printStackTrace();

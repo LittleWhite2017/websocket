@@ -87,16 +87,18 @@
     function analysisMessage(data){
         message = JSON.parse(data);
         if(message.type =='message'){
-
+            showMessage(message.message);
             console.log("message type")
         }
         if(message.type =='notice'){
-            // $("#chat").append(111);
             showNotice(message.message);
         }
         if(message.type =='onLine'){
             console.log("onLine type")
         }
+
+    }
+    function showMessage(data){
 
     }
     function closeConnection(){
@@ -118,7 +120,32 @@
         chat.scrollTop(chat[0].scrollHeight);   //让聊天区始终滚动到最下面
     }
 
-
+    function checkConnection(){
+        if(sock){
+            layer.msg("连接已存在", { offset: 0});
+        }else{
+            layer.msg("已经关闭连接", { offset: 0});
+        }
+    }
+    function clearConsole(){
+        $("#chat").html("");
+    }
+    function sendMessage(){
+        if(sock == null ){
+            layer.msg("连接未开启!", { offset: 0, shift: 6 });
+            return;
+        }
+        var message = $("#message").val();
+        var receiver = $("#sendto").text();
+        sock.send(JSON.stringify({
+            message : {
+                content : message,
+                to : receiver,
+                from : '${userid}'
+            },
+            type : "message"
+        }));
+    }
 </script>
 </body>
 </html>
